@@ -2,6 +2,7 @@ version: "3"
 x-common: &common
   networks:
     - signoz-net
+    - staging-urban-academy
   restart: on-failure
   logging:
     options:
@@ -208,6 +209,8 @@ services:
 networks:
   signoz-net:
     name: signoz-net
+  staging-urban-academy: # Added
+    external: true
 volumes:
   alertmanager:
     name: signoz-alertmanager
