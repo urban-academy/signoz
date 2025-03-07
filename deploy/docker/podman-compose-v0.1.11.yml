@@ -1,7 +1,7 @@
 version: "3"
 x-common: &common
   networks:
-    - staging-urban-academy-signoz
+    - production-urban-academy-signoz
 #  restart: on-failure
   logging:
     options:
@@ -189,7 +189,7 @@ services:
         condition: service_healthy
   schema-migrator-sync:
     !!merge <<: *common
-    image: signoz/signoz-schema-migrator:${OTELCOL_TAG:-0.111.24}
+    image: signoz/signoz-schema-migrator:${OTELCOL_TAG:-0.111.27}
     container_name: schema-migrator-sync
     command:
       - sync
@@ -200,15 +200,15 @@ services:
         condition: service_healthy
   schema-migrator-async:
     !!merge <<: *db-depend
-    image: signoz/signoz-schema-migrator:${OTELCOL_TAG:-0.111.24}
+    image: signoz/signoz-schema-migrator:${OTELCOL_TAG:-0.111.27}
     container_name: schema-migrator-async
     command:
       - async
       - --dsn=tcp://clickhouse:9000
       - --up=
 networks:
-  staging-urban-academy-signoz:
-    name: staging-urban-academy-signoz
+  production-urban-academy-signoz:
+    name: production-urban-academy-signoz
 volumes:
   alertmanager:
     name: signoz-alertmanager
